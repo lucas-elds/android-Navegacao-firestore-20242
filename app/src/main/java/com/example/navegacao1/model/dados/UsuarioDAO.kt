@@ -35,8 +35,19 @@ class UsuarioDAO {
             }
     }
 
-    fun buscarPorId(id: String, callback: (Usuario) -> Unit) {
-        //TODO implemente buscar por Id
+    fun buscarPorId(id: String, callback: (Usuario?) -> Unit) {
+        db.collection("usuarios").document(id).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val usuario = document.toObject<Usuario>()
+                    callback(usuario)
+                } else {
+                    callback(null)
+                }
+            }
+            .addOnFailureListener {
+                callback(null)
+            }
     }
 
 
