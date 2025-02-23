@@ -51,8 +51,15 @@ class UsuarioDAO {
     }
 
 
-    fun adicionar(usuario: Usuario, callback: (Usuario) -> Unit) {
-        //TODO implemente adicionar
+    fun adicionar(usuario: Usuario, callback: (Usuario?) -> Unit) {
+        db.collection("usuarios").add(usuario)
+            .addOnSuccessListener { documentReference ->
+                usuario.id = documentReference.id
+                callback(usuario)
+            }
+            .addOnFailureListener {
+                callback(null)
+            }
     }
 
 }
