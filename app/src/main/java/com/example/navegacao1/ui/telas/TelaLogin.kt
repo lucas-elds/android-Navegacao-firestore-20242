@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
 val usuarioDAO: UsuarioDAO = UsuarioDAO()
 
 @Composable
-fun TelaLogin(modifier: Modifier = Modifier, onSigninClick: () -> Unit ) {
+fun TelaLogin(modifier: Modifier = Modifier, onSigninClick: () -> Unit, onSignupClick: () -> Unit) {
     val context = LocalContext.current
     var scope = rememberCoroutineScope()
 
@@ -51,6 +52,12 @@ fun TelaLogin(modifier: Modifier = Modifier, onSigninClick: () -> Unit ) {
             }
         }) {
             Text("Entrar")
+        }
+
+        TextButton(modifier = Modifier.fillMaxWidth(), onClick = {
+            onSignupClick()
+        }) {
+            Text("Crie uma conta")
         }
 
         mensagemErro?.let {
